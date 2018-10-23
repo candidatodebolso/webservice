@@ -24,6 +24,16 @@ public class ApplicationUser extends AbstractEntity {
     @OneToOne
     private Voter voter;
 
+    public ApplicationUser() {
+    }
+
+    public ApplicationUser(ApplicationUser applicationUser) {
+        this.username = applicationUser.username;
+        this.password = applicationUser.password;
+        this.admin = applicationUser.admin;
+        this.voter = applicationUser.voter;
+    }
+
     public String getUsername() {
         return username;
     }
