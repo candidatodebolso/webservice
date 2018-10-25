@@ -1,4 +1,4 @@
-package br.com.candidatodebolso.webservice.security.service;
+package br.com.candidatodebolso.webservice.service.impl;
 
 import br.com.candidatodebolso.webservice.persistence.model.user.ApplicationUser;
 import br.com.candidatodebolso.webservice.persistence.repository.ApplicationUserRepository;
@@ -14,12 +14,12 @@ import java.util.Collection;
 import java.util.List;
 
 @Service
-public class CustomUserDetailsService implements UserDetailsService {
+public class CustomUserDetailsServiceImpl implements UserDetailsService {
 
     private final ApplicationUserRepository applicationUserRepository;
 
     @Autowired
-    public CustomUserDetailsService(ApplicationUserRepository applicationUserRepository) {
+    public CustomUserDetailsServiceImpl(ApplicationUserRepository applicationUserRepository) {
         this.applicationUserRepository = applicationUserRepository;
     }
 

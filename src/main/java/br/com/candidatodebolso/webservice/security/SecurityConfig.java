@@ -2,7 +2,7 @@ package br.com.candidatodebolso.webservice.security;
 
 import br.com.candidatodebolso.webservice.security.filter.JWTAuthenticationFilter;
 import br.com.candidatodebolso.webservice.security.filter.JWTAuthorizationFilter;
-import br.com.candidatodebolso.webservice.security.service.CustomUserDetailsService;
+import br.com.candidatodebolso.webservice.service.impl.CustomUserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -14,16 +14,16 @@ import org.springframework.web.cors.CorsConfiguration;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final CustomUserDetailsService customUserDetailsService;
+    private final CustomUserDetailsServiceImpl customUserDetailsServiceImpl;
 
     @Autowired
-    public SecurityConfig(CustomUserDetailsService customUserDetailsService) {
-        this.customUserDetailsService = customUserDetailsService;
+    public SecurityConfig(CustomUserDetailsServiceImpl customUserDetailsServiceImpl) {
+        this.customUserDetailsServiceImpl = customUserDetailsServiceImpl;
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(customUserDetailsService).passwordEncoder(new BCryptPasswordEncoder());
+        auth.userDetailsService(customUserDetailsServiceImpl).passwordEncoder(new BCryptPasswordEncoder());
     }
 
     @Override
@@ -32,10 +32,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/*/admin/**").hasRole("ADMIN")
-                .antMatchers("/*/voter/**").hasRole("VOTER")
+                .antMatchers("/admin/**").hasRole("ADMIN")
+                .antMatchers("/voter/**").hasRole("VOTER")
                 .and()
                 .addFilter(new JWTAuthenticationFilter(authenticationManager()))
-                .addFilter(new JWTAuthorizationFilter(authenticationManager(), customUserDetailsService));
+                .addFilter(new JWTAuthorizationFilter(authenticationManager(), customUserDetailsServiceImpl));
     }
 }

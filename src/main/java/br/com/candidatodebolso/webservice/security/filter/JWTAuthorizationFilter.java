@@ -2,7 +2,7 @@ package br.com.candidatodebolso.webservice.security.filter;
 
 import br.com.candidatodebolso.webservice.exception.ExpiredTokenException;
 import br.com.candidatodebolso.webservice.persistence.model.user.ApplicationUser;
-import br.com.candidatodebolso.webservice.security.service.CustomUserDetailsService;
+import br.com.candidatodebolso.webservice.service.impl.CustomUserDetailsServiceImpl;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -20,11 +20,11 @@ import java.io.IOException;
 import static br.com.candidatodebolso.webservice.security.filter.SecurityConstants.*;
 
 public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
-    private final CustomUserDetailsService customUserDetailsService;
+    private final CustomUserDetailsServiceImpl customUserDetailsServiceImpl;
 
-    public JWTAuthorizationFilter(AuthenticationManager authenticationManager, CustomUserDetailsService customUserDetailsService) {
+    public JWTAuthorizationFilter(AuthenticationManager authenticationManager, CustomUserDetailsServiceImpl customUserDetailsServiceImpl) {
         super(authenticationManager);
-        this.customUserDetailsService = customUserDetailsService;
+        this.customUserDetailsServiceImpl = customUserDetailsServiceImpl;
     }
 
     @Override
@@ -42,8 +42,8 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
     private UsernamePasswordAuthenticationToken getAuthenticationToken(String token) {
         try {
             String username = Jwts.parser().setSigningKey(SECRET).parseClaimsJws(token.replace(TOKEN_PREFIX, "")).getBody().getSubject();
-            UserDetails userDetails = customUserDetailsService.loadUserByUsername(username);
-            ApplicationUser applicationUser = customUserDetailsService.loadApplicationUserByUsername(username);
+            UserDetails userDetails = customUserDetailsServiceImpl.loadUserByUsername(username);
+            ApplicationUser applicationUser = customUserDetailsServiceImpl.loadApplicationUserByUsername(username);
             return userDetails != null ? new UsernamePasswordAuthenticationToken(applicationUser, null, userDetails.getAuthorities()) : null;
         } catch (ExpiredJwtException e) {
             throw new ExpiredTokenException("Seu login expirou! Faça-o novamente.");

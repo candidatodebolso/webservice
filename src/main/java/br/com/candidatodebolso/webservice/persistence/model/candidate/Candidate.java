@@ -1,15 +1,10 @@
 package br.com.candidatodebolso.webservice.persistence.model.candidate;
 
 import br.com.candidatodebolso.webservice.persistence.model.AbstractEntity;
-import br.com.candidatodebolso.webservice.persistence.model.question.Answer;
-import br.com.candidatodebolso.webservice.persistence.model.question.Question;
 
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
-import java.util.HashMap;
-import java.util.Map;
 
 @Entity
 public class Candidate extends AbstractEntity {
@@ -28,9 +23,6 @@ public class Candidate extends AbstractEntity {
 
     @Column(nullable = false)
     private String photoUrl;
-
-    @ElementCollection
-    private Map<Question, Answer> answers = new HashMap<>();
 
     public String getFullName() {
         return fullName;
@@ -54,14 +46,6 @@ public class Candidate extends AbstractEntity {
 
     public void setNumber(Integer number) {
         this.number = number;
-    }
-
-    public Map<Question, Answer> getAnswers() {
-        return answers;
-    }
-
-    public void setAnswers(Map<Question, Answer> answers) {
-        this.answers = answers;
     }
 
     public PoliticalParty getPoliticalParty() {
