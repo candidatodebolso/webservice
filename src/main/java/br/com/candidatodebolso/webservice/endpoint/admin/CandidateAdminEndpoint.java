@@ -1,4 +1,4 @@
-package br.com.candidatodebolso.webservice.endpoint;
+package br.com.candidatodebolso.webservice.endpoint.admin;
 
 import br.com.candidatodebolso.webservice.persistence.model.candidate.Candidate;
 import br.com.candidatodebolso.webservice.service.CrudService;

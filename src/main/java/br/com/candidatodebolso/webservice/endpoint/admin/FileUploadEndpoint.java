@@ -1,4 +1,4 @@
-package br.com.candidatodebolso.webservice.endpoint;
+package br.com.candidatodebolso.webservice.endpoint.admin;
 
 import br.com.candidatodebolso.webservice.service.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
