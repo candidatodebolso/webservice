@@ -22,20 +22,20 @@ public class NewsAdminEndpoint {
 
     @PostMapping
     @Transactional
-    public ResponseEntity<?> create(@RequestBody @Validated News politicalParty) {
-        return new ResponseEntity<>(newsCrudService.create(politicalParty), HttpStatus.CREATED);
+    public ResponseEntity<?> create(@RequestBody @Validated News news) {
+        return new ResponseEntity<>(newsCrudService.create(news), HttpStatus.CREATED);
     }
 
     @PutMapping
     @Transactional
-    public ResponseEntity<?> update(@RequestBody @Validated News politicalParty) {
-        return new ResponseEntity<>(newsCrudService.update(politicalParty), HttpStatus.OK);
+    public ResponseEntity<?> update(@RequestBody @Validated News news) {
+        return new ResponseEntity<>(newsCrudService.update(news), HttpStatus.OK);
     }
 
     @DeleteMapping
     @Transactional
-    public ResponseEntity<?> delete(@RequestBody News politicalParty) {
-        newsCrudService.delete(politicalParty);
+    public ResponseEntity<?> delete(@RequestBody News news) {
+        newsCrudService.delete(news);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

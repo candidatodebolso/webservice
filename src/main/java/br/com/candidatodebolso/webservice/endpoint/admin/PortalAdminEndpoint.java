@@ -22,20 +22,20 @@ public class PortalAdminEndpoint {
 
     @PostMapping
     @Transactional
-    public ResponseEntity<?> create(@RequestBody @Validated Portal politicalParty) {
-        return new ResponseEntity<>(portalCrudService.create(politicalParty), HttpStatus.CREATED);
+    public ResponseEntity<?> create(@RequestBody @Validated Portal portal) {
+        return new ResponseEntity<>(portalCrudService.create(portal), HttpStatus.CREATED);
     }
 
     @PutMapping
     @Transactional
-    public ResponseEntity<?> update(@RequestBody @Validated Portal politicalParty) {
-        return new ResponseEntity<>(portalCrudService.update(politicalParty), HttpStatus.OK);
+    public ResponseEntity<?> update(@RequestBody @Validated Portal portal) {
+        return new ResponseEntity<>(portalCrudService.update(portal), HttpStatus.OK);
     }
 
     @DeleteMapping
     @Transactional
-    public ResponseEntity<?> delete(@RequestBody Portal politicalParty) {
-        portalCrudService.delete(politicalParty);
+    public ResponseEntity<?> delete(@RequestBody Portal portal) {
+        portalCrudService.delete(portal);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
